@@ -1,39 +1,67 @@
 <template>
-  <div class="card">
-    <h1 ref="title">Hello, Template Refs!</h1>
-    <input type="text" ref="input" />
-    <button @click="printDomElements">Print DOM elements in console log</button>
-    <button @click="changeTitle">Change title</button>
-  </div>
+  <h1>{{ message }}</h1>
+  <img v-bind:src="imageUrl" alt="" />
+  <br />
+
+  <!-- shorthand for v-bind -->
+  <img :src="imageUrl" alt="" />
+  <br />
+
+  <button @click="changeImg">Change image</button>
+
+  <br />
+
+  <hr />
+
+  <input type="text" :value="defaultInputText" />
+
+  <hr />
+
+  <p :class="className">Harry Potter</p>
+
+  <!-- define a JS object in :class -->
+  <p :class="{ inactive: isInactive, center: isCenter }">
+    <!-- if you think embedding a JS object in HTML is verbose, you can choose to move the object to the script, 
+        give it a name, and only put the JS object name in :class -->
+    Harry Potter
+  </p>
+
+  <!-- define a JS array in :class -->
+  <p :class="['active', 'center']">Harry Potter</p>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
-// declare a ref to hold the element reference
-// the name must match template ref value
-let title = ref()
-const input = ref()
+let message = 'Hello, v-bind!'
+let imageUrl = ref('public/img/banner_1.jpg')
 
-function printDomElements() {
-  console.log(title.value)
-  console.log(input.value)
+function changeImg() {
+  imageUrl.value = 'public/img/banner_2.jpg'
 }
 
-function changeTitle() {
-  title.value.innerText = 'Hello world!'
-}
+let defaultInputText = 'Write something here...'
 
-onMounted(() => {
-  input.value.focus() // programmatically focus an input on component mount
-})
+let className = ref('active')
+let isInactive = ref(true)
+let isCenter = ref(false)
 </script>
 
 <style scoped>
-.card {
-  background-color: purple;
-  color: white;
-  padding: 20px 10px;
-  margin-bottom: 10px;
+img {
+  max-width: 300px;
+}
+
+.active {
+  color: green;
+}
+
+.inactive {
+  color: red;
+  text-decoration: line-through;
+}
+
+.center {
+  text-align: center;
 }
 </style>
