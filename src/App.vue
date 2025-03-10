@@ -1,39 +1,21 @@
 <template>
-  <div class="card">
-    <h1 ref="title">Hello, Template Refs!</h1>
-    <input type="text" ref="input" />
-    <button @click="printDomElements">Print DOM elements in console log</button>
-    <button @click="changeTitle">Change title</button>
+  <ButtonCounter></ButtonCounter>
+  <ButtonCounter></ButtonCounter>
+
+  <button-counter></button-counter>
+
+  <hr />
+
+  <div style="background-color: orange; padding: 5px">
+    This is the root component.
+    <ComponentA></ComponentA>
+    <ComponentA></ComponentA>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-
-// declare a ref to hold the element reference
-// the name must match template ref value
-let title = ref()
-const input = ref()
-
-function printDomElements() {
-  console.log(title.value)
-  console.log(input.value)
-}
-
-function changeTitle() {
-  title.value.innerText = 'Hello world!'
-}
-
-onMounted(() => {
-  input.value.focus() // programmatically focus an input on component mount
-})
+import ButtonCounter from './ButtonCounter.vue'
+import ComponentA from '@/ComponentA.vue'
 </script>
 
-<style scoped>
-.card {
-  background-color: purple;
-  color: white;
-  padding: 20px 10px;
-  margin-bottom: 10px;
-}
-</style>
+<style scoped></style>
